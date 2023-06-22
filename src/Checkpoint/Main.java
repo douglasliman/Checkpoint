@@ -6,11 +6,12 @@ import java.time.LocalDate;
 public class Main {
 
     public static <ArrayList> void main(String[] args) {
-        Roupa vestido = new Roupa(1, "Vestido Longo", "G", 250.0, false);
-        Roupa smoking = new Roupa(2, "Smoking", "G", 300.0, true);
-        Roupa saia = new Roupa(3, "Saia mid", "P", 100.0, true);
-        Roupa vestidoInfantil = new Roupa(4, "Vestido Infantil", "M", 100.0, false);
-        Roupa camisaFeminina = new Roupa(5, "Camisa Feminina", "M", 80.0, true);
+        //CRIAR INSTANCIAS DE ACORDO COM O GENERO
+        Roupa vestido = new Roupa(1, "Vestido Longo", "G", 250.0, false, "Casamento");
+        Roupa smoking = new RoupasMasculinas(2, "Smoking", "G", 300.0, true, "Smoking");
+        Roupa saia = new Roupa(3, "Saia mid", "P", 100.0, true, "Promoção");
+        Roupa vestidoFeminino = new Roupa(4, "Vestido Infantil", "M", 100.0, false,"Promoção");
+        Roupa camisaFeminina = new Roupa(5, "Camisa Feminina", "M", 80.0, true, "Debutante");
 
         // vestido.atualizarPreco(100.0);
         //  smoking.atualizarPreco(350.0);
@@ -20,8 +21,9 @@ public class Main {
         Loja.registrarRoupas(vestido);
         Loja.registrarRoupas(smoking);
         Loja.registrarRoupas(saia);
-        Loja.registrarRoupas(vestidoInfantil);
+        Loja.registrarRoupas(vestidoFeminino);
         Loja.registrarRoupas(camisaFeminina);
+
 
       //  loja.removerRoupa(saia);
         /*java.util.ArrayList<Roupa> roupasDisponiveis = loja.listarRoupasDisponiveis();
@@ -29,7 +31,7 @@ public class Main {
         for (Roupa roupa : roupasDisponiveis) {
             System.out.println("ID: " + roupa.getIdRoupa() + ", Nome: " + roupa.getNome() + ", Tamanho: " + roupa.getTamanho() + ", Preço: " + roupa.getPrecoRoupa());
         }*/
-        Menu.exibirMenu();
+       // Loja.exibirMenu();
         /*
         loja.cadastrarRoupa();
         java.util.ArrayList<Roupa> roupasDisponiveis = loja.listarRoupasDisponiveis();
@@ -39,24 +41,27 @@ public class Main {
        }
 */
 
+
+        Cliente cliente1 = new Cliente("Ana", "222222222", "aa@aa.com", "00000000000");
+        Cliente cliente2 = new Cliente("Carlos", "333333333", "cc@cc.com","00000000000");
+        Cliente cliente3 = new Cliente("Marta", "444444444", "mm@mm.com","66655588899");
+
+
+        LocalDate dataInicio = LocalDate.now();
+        LocalDate dataFim = dataInicio.plusDays(7);
 //
-//        Cliente cliente1 = new Cliente("Ana", "222222222", "aa@aa.com");
-//        Cliente cliente2 = new Cliente("Carlos", "333333333", "cc@cc.com");
-//        Cliente cliente3 = new Cliente("Marta", "444444444", "mm@mm.com");
-//
-//
-//        LocalDate dataInicio = LocalDate.now();
-//        LocalDate dataFim = dataInicio.plusDays(7);
-//
-//        Aluguel aluguel01 = new Aluguel(1, cliente1, vestido, dataInicio, dataFim);
-//        Aluguel aluguel02 = new Aluguel(2, cliente3, vestidoInfantil, dataInicio, dataFim);
-//        Aluguel aluguel03 = new Aluguel(3, cliente1, smoking, dataInicio, dataFim);
-//        Aluguel aluguel04 = new Aluguel(4, cliente2, camisaFeminina, dataInicio, dataFim);
+        Aluguel aluguel01 = new Aluguel(1, cliente1, vestido, dataInicio, dataFim,true);
+        Aluguel aluguel02 = new Aluguel(2, cliente3, vestidoFeminino, dataInicio, dataFim, false);
+        Aluguel aluguel03 = new Aluguel(3, cliente1, smoking, dataInicio, dataFim, true);
+        Aluguel aluguel04 = new Aluguel(4, cliente2, camisaFeminina, dataInicio, dataFim, true);
+
+//        Aluguel.calcularAluguel();
+
 //
 //
 //        aluguel01.calcularAluguel();
 //        aluguel02.calcularAluguel();
-//        aluguel03.calcularAluguel();
+        aluguel03.calcularAluguel();
 //        aluguel04.calcularAluguel();
 //
 //

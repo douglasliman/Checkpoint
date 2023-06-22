@@ -21,13 +21,68 @@ public class Loja {
 
     }
 
+    //========================= Exibir Menu ==============================
+    public static void exibirMenu(){
+        Scanner scanner = new Scanner(System.in);
+        boolean sair = false;
+
+        while(!sair){
+            System.out.println("Menu");
+            System.out.println("ATENÇÃO: Use números para navegar");
+            System.out.println("1 - Cadastrar roupa");
+            System.out.println("2 - Cadastrar cliente");
+            System.out.println("3 - Buscar roupa");
+            System.out.println("4 - Buscar cliente");
+            System.out.println("5 - Roupas disponiveis");
+            System.out.println("6 - Sair");
 
 
+
+            int option = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (option){
+                case 1:
+                    cadastrarRoupa();
+                    break;
+                case 2:
+                   cadastrarCliente();
+                    break;
+                case 3:
+                   consultarRoupa();
+                    break;
+                case 4:
+                   consultarCliente();
+                    break;
+                case 5:
+                  roupasDisponiveisAtualmente();
+                    break;
+                case 6:
+                    sair = true;
+                    break;
+                default:
+                    System.out.println("Esse número não é válido");
+            }
+
+
+        }
+
+        System.out.println("Fechando o programa");
+
+    }
+
+    //=========================Cadastrar Roupa Manualmente ==============================
     public static void registrarRoupas(Roupa roupa) {
         roupas.add(roupa);
 
     }
+    //========================= Remover Roupa Manualmente ===============================
+    public void removerRoupa (Roupa roupa){
+        roupas.remove(roupa);
+    }
 
+
+    //=========================Cadastrar Roupa via Console ===============================
         public static void cadastrarRoupa(){
             Scanner scanner = new Scanner(System.in);
 
@@ -54,26 +109,42 @@ public class Loja {
             boolean disponivel = scanner.nextBoolean();
             scanner.nextLine();
 
-            Roupa roupa = new Roupa(idRoupa,nome,tamanho,precoRoupa,disponivel );
+            System.out.println("Tipo de roupa: ");
+            String tipo = scanner.nextLine();
+            scanner.nextLine();
+
+            Roupa roupa = new Roupa(idRoupa,nome,tamanho,precoRoupa,disponivel, tipo);
             roupas.add(roupa);
-        }
 
 
+            boolean sair = false;
+            while(!sair) {
+                System.out.println("Menu");
+                System.out.println("1- Voltar ao menu");
+                System.out.println("2- Cadastrar nova roupa");
+                // System.out.println("3- Sair");
+                int option = scanner.nextInt();
+                scanner.nextLine();
 
-
-    public void removerRoupa (Roupa roupa){
-        roupas.remove(roupa);
-     }
-
-    public static ArrayList<Roupa> listarRoupasDisponiveis() {
-        ArrayList<Roupa> roupasDisponiveis = new ArrayList<>();
-        for (Roupa roupa : roupas) {
-            if (roupa.isDisponivel()) {
-                roupasDisponiveis.add(roupa);
+                switch (option) {
+                    case 1:
+                        exibirMenu();
+                        break;
+                    case 2:
+                        cadastrarRoupa();
+                        break;
+                    case 3:
+                        sair = true;
+                        break;
+                    default:
+                        System.out.println("Esse número não é válido");
+                }
             }
+
         }
-        return roupasDisponiveis;
-    }
+
+
+    //========================= Roupas disponiveis  =============================
     public static void roupasDisponiveisAtualmente(){
         java.util.ArrayList<Roupa> roupasDisponiveis = listarRoupasDisponiveis();
         System.out.println("Roupas disponíveis na loja:");
@@ -87,15 +158,19 @@ public class Loja {
         while(!sair) {
             System.out.println("Menu");
             System.out.println("1- Voltar ao menu");
-           // System.out.println("2- Sair");
+            System.out.println("2- Consultar novamente");
+            // System.out.println("3- Sair");
             int option = scanner.nextInt();
             scanner.nextLine();
 
             switch (option) {
                 case 1:
-                    Menu.exibirMenu();
+                    exibirMenu();
                     break;
                 case 2:
+                    roupasDisponiveisAtualmente();
+                    break;
+                case 3:
                     sair = true;
                     break;
                 default:
@@ -104,14 +179,18 @@ public class Loja {
         }
 
     }
-    public static Roupa buscarIdRoupa(int id) {
+    public static ArrayList<Roupa> listarRoupasDisponiveis() {
+        ArrayList<Roupa> roupasDisponiveis = new ArrayList<>();
         for (Roupa roupa : roupas) {
-            if (roupa.getIdRoupa() == id) {
-                return roupa;
+            if (roupa.isDisponivel()) {
+                roupasDisponiveis.add(roupa);
             }
         }
-        return null;
+        return roupasDisponiveis;
     }
+
+    //========================= Consultar Roupas =============================
+
     public static void consultarRoupa() {
         Scanner scanner = new Scanner(System.in);
 
@@ -130,7 +209,42 @@ public class Loja {
         } else {
             System.out.println("Nenhuma roupa com esse Id encontrada");
         }
+
+        boolean sair = false;
+        while(!sair) {
+            System.out.println("Menu");
+            System.out.println("1- Voltar ao menu");
+            System.out.println("2- Consultar nova roupa");
+            // System.out.println("3- Sair");
+            int option = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (option) {
+                case 1:
+                    exibirMenu();
+                    break;
+                case 2:
+                    consultarRoupa();
+                    break;
+                case 3:
+                    sair = true;
+                    break;
+                default:
+                    System.out.println("Esse número não é válido");
+            }
+        }
+
     }
+    public static Roupa buscarIdRoupa(int id) {
+        for (Roupa roupa : roupas) {
+            if (roupa.getIdRoupa() == id) {
+                return roupa;
+            }
+        }
+        return null;
+    }
+
+    //========================= Cadastrar cliente =============================
     public static void cadastrarCliente(){
         Scanner scanner = new Scanner(System.in);
 
@@ -156,7 +270,32 @@ public class Loja {
         Cliente cliente = new Cliente(nome,telefone,email,cpf );
         cliente.add(cliente);
 
+        boolean sair = false;
+        while(!sair) {
+            System.out.println("Menu");
+            System.out.println("1- Voltar ao menu");
+            System.out.println("2- Cadastrar outro cliente");
+            // System.out.println("3- Sair");
+            int option = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (option) {
+                case 1:
+                    exibirMenu();
+                    break;
+                case 2:
+                    cadastrarCliente();
+                    break;
+                case 3:
+                    sair = true;
+                    break;
+                default:
+                    System.out.println("Esse número não é válido");
+            }
+        }
     }
+
+    //========================= Consultar cliente =============================
     public static void consultarCliente() {
         Scanner scanner = new Scanner(System.in);
 
@@ -175,6 +314,29 @@ public class Loja {
         } else {
             System.out.println("Nenhum cliente encontrado com o CPF informado.");
         }
+        boolean sair = false;
+        while(!sair) {
+            System.out.println("Menu");
+            System.out.println("1- Voltar ao menu");
+            System.out.println("2- Consultar outro cliente");
+            // System.out.println("3- Sair");
+            int option = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (option) {
+                case 1:
+                    exibirMenu();
+                    break;
+                case 2:
+                    consultarCliente();
+                    break;
+                case 3:
+                    sair = true;
+                    break;
+                default:
+                    System.out.println("Esse número não é válido");
+            }
+        }
     }
 
     public static Cliente buscarClientePorCPF(String cpf) {
@@ -186,6 +348,7 @@ public class Loja {
         return null;
     }
 
+    //========================= GETTER & SETTERS =============================
 
     public String getNome() {
         return nome;
